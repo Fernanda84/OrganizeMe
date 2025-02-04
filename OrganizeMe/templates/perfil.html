@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Estudante</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Perfil do estudante</h2>
+        
+        <div class="profile">
+            <label for="upload-photo">
+                <img id="profile-pic" src="avatar.png" alt="Foto de perfil">
+            </label>
+            <input type="file" id="upload-photo" accept="image/*" onchange="loadFile(event)">
+            <p><label for="upload-photo" class="edit-photo">Editar foto</label></p>
+        </div>
+
+        <div class="info">
+            <p><strong>Nome*: </strong><span id="user-name">Carregando...</span></p>
+            <p><strong>Email*: </strong><span id="user-email">Carregando...</span></p>
+        </div>
+
+        <div class="actions">
+            <p><a href="editar_email.html">Editar email</a></p>
+            <p><a href="redefinir_senha.html">Editar senha</a></p>
+        </div>
+    </div>
+</body>
+</html>

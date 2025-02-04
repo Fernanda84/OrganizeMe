@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Estudos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="materias">
+            <h2>Matérias</h2>
+            <form id="formMateria">
+                <input type="text" id="nomeMateria" placeholder="Digite a matéria" required>
+                <button type="submit">Adicionar</button>
+            </form>
+            <ul id="listaMaterias"></ul>
+        </div>
+
+        <div class="atividades">
+            <h2>Atividades</h2>
+            <form id="formAtividade">
+                <select id="selecaoMateria" required>
+                    <option value="">Selecione a matéria</option>
+                </select>
+                <input type="text" id="conteudo" placeholder="Conteúdo da atividade" required>
+                <input type="text" id="status" placeholder="Status (pendente, concluído)" required>
+                <input type="date" id="prazo" required>
+                <button type="submit">Adicionar</button>
+            </form>
+            <div class="grid-atividades" id="listaAtividades"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
