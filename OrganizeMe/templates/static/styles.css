@@ -186,3 +186,113 @@ button {
 button:hover {
     background-color: #8365b8;
 }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4efff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #b299e5;
+    padding: 15px;
+    font-size: 24px;
+    color: black;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.profile-picture img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid #6a4bc4;
+}
+
+.profile-picture button {
+    display: block;
+    margin: 10px auto;
+    padding: 5px 10px;
+    background-color: #6a4bc4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-info {
+    text-align: left;
+    font-size: 18px;
+}
+
+.edit-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6a4bc4;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.btn:hover {
+    background-color: #4a3396;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4efff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #6a4bc4;
+    margin-top: 50px;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+label {
+    font-size: 18px;
+}
+
+input[type="email"] {
+    width: 60%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn {
+    display: block;
+    width: 200px;
+    padding: 15px;
+    margin: 30px auto;
+    background-color: #b299e5;
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #8a6edb;
+}

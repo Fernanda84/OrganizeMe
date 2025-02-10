@@ -7,26 +7,40 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Perfil do estudante</h2>
+    <header>
+        <h1>Perfil do Estudante</h1>
+    </header>
+    
+    <main>
+        <div class="profile-container">
+            <div class="profile-picture">
+                <img src="profile-placeholder.png" alt="Foto do Perfil" id="profile-img">
+                <input type="file" id="upload-photo" accept="image/*" hidden>
+                <button onclick="document.getElementById('upload-photo').click()">Editar foto</button>
+            </div>
+            <div class="profile-info">
+                <p><strong>Nome:</strong> <span id="student-name">Seu Nome</span></p>
+                <p><strong>Email:</strong> <span id="student-email">email@example.com</span></p>
+            </div>
+        </div>
         
-        <div class="profile">
-            <label for="upload-photo">
-                <img id="profile-pic" src="avatar.png" alt="Foto de perfil">
-            </label>
-            <input type="file" id="upload-photo" accept="image/*" onchange="loadFile(event)">
-            <p><label for="upload-photo" class="edit-photo">Editar foto</label></p>
+        <div class="edit-buttons">
+            <a href="editar_email.html" class="btn">Editar Email</a>
+            <a href="redefinir_senha.html" class="btn">Editar Senha</a>
         </div>
-
-        <div class="info">
-            <p><strong>Nome*: </strong><span id="user-name">Carregando...</span></p>
-            <p><strong>Email*: </strong><span id="user-email">Carregando...</span></p>
-        </div>
-
-        <div class="actions">
-            <p><a href="editar_email.html">Editar email</a></p>
-            <p><a href="redefinir_senha.html">Editar senha</a></p>
-        </div>
-    </div>
+    </main>
+    
+    <script>
+        document.getElementById('upload-photo').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
