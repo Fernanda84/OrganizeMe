@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil do Estudante</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
     <header>
@@ -14,19 +15,22 @@
     <main>
         <div class="profile-container">
             <div class="profile-picture">
-                <img src="profile-placeholder.png" alt="Foto do Perfil" id="profile-img">
+                <!-- Foto do perfil com imagem estática e a possibilidade de upload -->
+                <img src="{% static 'profile-placeholder.png' %}" alt="Foto do Perfil" id="profile-img">
                 <input type="file" id="upload-photo" accept="image/*" hidden>
                 <button onclick="document.getElementById('upload-photo').click()">Editar foto</button>
             </div>
             <div class="profile-info">
-                <p><strong>Nome:</strong> <span id="student-name">Seu Nome</span></p>
-                <p><strong>Email:</strong> <span id="student-email">email@example.com</span></p>
+                <!-- Informações do estudante dinâmicas com placeholders -->
+                <p><strong>Nome:</strong> <span id="student-name">{{ student.name }}</span></p>
+                <p><strong>Email:</strong> <span id="student-email">{{ student.email }}</span></p>
             </div>
         </div>
         
         <div class="edit-buttons">
-            <a href="editar_email.html" class="btn">Editar Email</a>
-            <a href="redefinir_senha.html" class="btn">Editar Senha</a>
+            <!-- Links para editar email e senha -->
+            <a href="{% url 'editar_email' %}" class="btn">Editar Email</a>
+            <a href="{% url 'redefinir_senha' %}" class="btn">Editar Senha</a>
         </div>
     </main>
     

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,45 +15,39 @@
     <main>
         <section class="form-section">
             <h2>Nova Atividade</h2>
-            <form id="activity-form">
-                <input type="text" id="subject" placeholder="Matéria" required>
-                <input type="text" id="content" placeholder="Conteúdo" required>
-                <input type="date" id="deadline" required>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="Matéria" placeholder="Matéria" required>
+                <input type="text" name="Conteúdo" placeholder="Conteúdo" required>
+                <input type="date" name="Prazo" required>
                 <button type="submit">Adicionar Atividade</button>
             </form>
         </section>
         
         <section class="activities">
             <h2>Atividades</h2>
-            <div id="activity-list" class="activity-grid"></div>
+            <div id="activity-list" class="activity-grid">
+                {% for atividade in atividades %}
+                    <div class="activity-card">
+                        <p><strong>Matéria:</strong> {{ atividade.Materia }}</p>
+                        <p><strong>Conteúdo:</strong> {{ atividade.conteudo }}</p>
+                        <p><strong>Prazo:</strong> {{ atividade.prazo }}</p>
+                        <p><strong>Status:</strong> {{ atividade.status }}</p>
+                        {% if atividade.status == 'Em andamento' %}
+                            <button onclick="markAsDone(this)">Concluir</button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
         </section>
     </main>
-    
+
     <script>
-        document.getElementById('activity-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const subject = document.getElementById('subject').value;
-            const content = document.getElementById('content').value;
-            const deadline = document.getElementById('deadline').value;
-            
-            const activityCard = document.createElement('div');
-            activityCard.classList.add('activity-card');
-            activityCard.innerHTML = `
-                <p><strong>Matéria:</strong> ${subject}</p>
-                <p><strong>Conteúdo:</strong> ${content}</p>
-                <p><strong>Prazo:</strong> ${deadline}</p>
-                <p><strong>Status:</strong> Em andamento</p>
-                <button onclick="markAsDone(this)">Concluir</button>
-            `;
-            
-            document.getElementById('activity-list').appendChild(activityCard);
-            this.reset();
-        });
-        
         function markAsDone(button) {
-            button.parentElement.querySelector('p:nth-child(4)').innerHTML = '<strong>Status:</strong> Concluído';
+            const activityCard = button.parentElement;
+            activityCard.querySelector('p:nth-child(4)').innerHTML = '<strong>Status:</strong> Concluído';
             button.remove();
+            
         }
     </script>
 </body>
