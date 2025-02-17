@@ -1,0 +1,36 @@
+{% extends 'usuario/base_user.html' %}
+{% load static %}
+
+{% block title %}Login - OrganizeMe{% endblock %}
+
+{% block content %}
+<div class="login-cadastro">
+    <!-- Login -->
+    <div class="login-box">
+        <h2>OrganizeMe</h2>
+        <p class="subtext">Bem-vindo de volta!</p>
+        <p class="small-text">Acesse sua conta agora mesmo.</p>
+        <a href="{% url 'index' %}" class="btn">Entrar</a>
+        <a href="{% url 'redefinir_senha' %}" class="forgot-password">Esqueci minha senha.</a>
+    </div>
+
+    <!-- Cadastro -->
+    <div class="cadastro-box">
+        <h2>Crie sua conta</h2>
+        <p class="small-text">Preencha seus dados</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OrganizeMe{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'usuario/estilo.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="OrganizeMe Logo" class="logo">
+            <h1>OrganizeMe</h1>
+            <p>Seja bem-vindo ao OrganizeMe!</p>
+            <p>Aqui você poderá criar um cronograma personalizado e organizado para sua rotina.</p>
+            <p>Faça já sua conta e se organize!</p>
+        </div>
+
+        {% block content %}{% endblock %}
+
+    </div>
+
+</body>
+</html>

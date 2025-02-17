@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('OrganizeMe.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('admin/', admin.site.urls),
+     path('usuario/', include('usuario.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
