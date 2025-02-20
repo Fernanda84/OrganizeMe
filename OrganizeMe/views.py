@@ -21,10 +21,11 @@ def editar_email(request):
 def cronograma(request):
     if request.method == 'POST':
         materia = request.POST.get('materia')
-        conteudo = request.POST.get('conteudo')
+        descricao = request.POST.get('descricao')
         prazo = request.POST.get('prazo')
+    
 
-        Atividade.objects.create(materia=materia, conteudo=conteudo, prazo=prazo, status='em andamento')
+        Atividade.objects.create(materia=materia, descricao=descricao , prazo=prazo, status='em andamento')
         
         return HttpResponse('Atividade adicionada com sucesso')
 
@@ -59,6 +60,38 @@ def redefinir_senha(request):
             messages.error(request, 'Por favor, forneça um e-mail válido.')
 
     return render(request, 'redefinir_senha.html')
+
+def criar_atividade(request):
+    if request.method == 'POST':
+        form = AtividadeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar atividades')
+    else:
+        form = AtividadeForm(instance=atividade)
+    return render(request, 'atividades/atividade_form.html', {'form': form})
+
+def listar_atividades(request):
+    atividades = Atividade.objects.all()
+    return render(request, 'atividades/atividade_list.html', {'atividades': atividades})
+
+def editar_atividade(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+    if request.method == "POST":
+        form = AtividadeForm(request.POST, instance=atividade)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_atividades')
+    else:
+        form = AtividadeForm(instance=atividade)
+    return render(request, 'atividades/atividade_form.html', {'form': form})
+
+def excluir_atividade(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+    if request.method == "POST":
+        atividade.delete()
+        return redirect('listar_atividades')
+    return render(request, 'atividades/atividade_confirm_delete.html', {'atividade': atividade})
 
 
 
