@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OrganizeMe',
-    'usuario',
+    
 ]
 
 MIDDLEWARE = [
@@ -135,4 +135,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'seu_email@exemplo.com'
 EMAIL_HOST_PASSWORD = 'sua_senha'
 DEFAULT_FROM_EMAIL = 'seu_email@exemplo.com'
-AUTH_USER_MODEL = "usuario.User"

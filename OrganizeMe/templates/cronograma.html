@@ -1,79 +1,28 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronograma</title>
-    <style>
-        body {
-            background-color: #eae0f2;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        header {
-            background-color: #a67dcf;
-            color: black;
-            text-align: center;
-            padding: 15px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .card {
-            background-color: #b095d6;
-            padding: 15px;
-            margin: 10px;
-            width: 200px;
-            height: 150px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .card p {
-            margin: 5px 0;
-            font-weight: bold;
-        }
-        
-    </style>
+    <title>Cronograma de Atividades</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 
-
-    <header class="top-bar">
-        <h1>Atividades</h1>
-    </header>
-
+    <div class="header">Atividades</div>
 
     <div class="container">
-        <div class="grid">
-            {% for atividade in atividades %}
+        {% for atividade in atividades %}
             <div class="card">
                 <p><strong>Matéria:</strong> {{ atividade.materia }}</p>
                 <p><strong>Conteúdo:</strong> {{ atividade.conteudo }}</p>
                 <p><strong>Status:</strong> {{ atividade.get_status_display }}</p>
                 <p><strong>Prazo:</strong> {{ atividade.prazo }}</p>
-                <form method="POST" href="{% url 'concluir_tarefa' tarefa.id %}">Concluir/>
-                    {% csrf_token %}
-                    <button type="submit" class="btn">Concluir Atividade</button>
-                </form>
             </div>
-            {% endfor %}
-        </div>
+        {% empty %}
+            <p>Nenhuma atividade cadastrada.</p>
+        {% endfor %}
     </div>
-
-
-   
-
 
 </body>
 </html>

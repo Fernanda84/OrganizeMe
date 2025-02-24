@@ -1,106 +1,110 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
-from .models import Tarefa
+from .models import Atividade
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.forms.models import model_to_dict
+from .forms import AtividadeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 
 def index(request):
+    tarefas_em_andamento = Atividade.objects.filter(status="em andamento")
+    tarefas_pendentes = Atividade.objects.filter(status="pendente")
+    tarefas_finalizadas = Atividade.objects.filter(status="finalizada")
+
     context = {
-        'tarefas_andamento': 5,  # Dados fictícios
-        'tarefas_pendentes': 2,
-        'tarefas_finalizadas': 8,
+        "tarefas_em_andamento": tarefas_em_andamento,
+        "tarefas_pendentes": tarefas_pendentes,
+        "tarefas_finalizadas": tarefas_finalizadas
     }
-    return render(request, 'index.html', context)
-
-
-def editar_email(request):
-    if request.method == 'POST':
-        novo_email = request.POST.get('email')
-
-        return HttpResponse(f'O novo email é: {novo_email}')
-    return render (request, 'editar_email.html')
+    
+    return render(request, "index.html", context)
 
 def cronograma(request):
-    tarefas = Tarefa.objects.all()
-    return render(request, 'cronograma.html', {'tarefas': tarefas})
-
-
-def perfil (request):
-    if request.method == 'POST':
-        estudante = request.POST.get('estudante')
-
-    return render(request, 'perfil.html', {'estudante:estudante'})
-
-def redefinir_senha(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-
-        if email:  
-            send_mail(
-                'Recuperação de Senha',
-                'Clique no link abaixo para redefinir sua senha: <link_de_redefinicao>',
-                settings.DEFAULT_FROM_EMAIL,
-                [email],
-                fail_silently=False,
-            )
-
-            mensagens(request, 'Instruções de redefinição de senha foram enviadas para o seu e-mail.')
-
-            return redirect('redefinir_senha')
-        else:
-            messages.error(request, 'Por favor, forneça um e-mail válido.')
-
-    return render(request, 'redefinir_senha.html')
+    atividades = Atividade.objects.all().order_by('prazo')  # Ordena pelo prazo
+    return render(request, "cronograma.html", {"atividades": atividades})
 
 def criar_atividade(request):
     if request.method == "POST":
-        materia = request.POST["materia"]
-        conteudo = request.POST["conteudo"]
-        status = request.POST["status"]
-        prazo = request.POST["prazo"]
-        
-        return redirect('cronograma')  # Redireciona para o cronograma
-   
-    return render(request, "criar_atividade.html")
-
+        form = AtividadeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("cronograma")
+    else:
+        form = AtividadeForm()
+    
+    return render(request, "criar_atividade.html", {"form": form})
 
 def listar_atividades(request):
     atividades = Atividade.objects.all()
-    return render(request, 'atividades/atividade_list.html', {'atividades': atividades})
+    return render(request, "listar_atividades.html", {"atividades": atividades})
 
-def editar_atividade(request, tarefa_id):
-    tarefa = get_object_or_404(Tarefa, id=tarefa_id)
-
-
+def editar_atividade(request, atividade_id):
+    atividade = get_object_or_404(Atividade, id=atividade_id)
+    
     if request.method == "POST":
-        tarefa.materia = request.POST["materia"]
-        tarefa.conteudo = request.POST["conteudo"]
-        tarefa.status = request.POST["status"]
-        tarefa.prazo = request.POST["prazo"]
-        tarefa.save()
-        return redirect("cronograma")
+        form = AtividadeForm(request.POST, instance=atividade)
+        if form.is_valid():
+            form.save()
+            return redirect("listar_atividades")
+    else:
+        form = AtividadeForm(instance=atividade)
+    
+    return render(request, "editar_atividade.html", {"form": form, "atividade": atividade})
 
-
-    return render(request, "editar_tarefa.html", {"tarefa": tarefa})
-
-
-def concluir_tarefa(request, tarefa_id):
-    tarefa = get_object_or_404(Tarefa, id=tarefa_id)
-    tarefa.status = "Finalizada"  # Altere conforme sua lógica de status
-    tarefa.save()
-    return redirect('cronograma')  
-   
-
-def excluir_atividade(request, id):
-    atividade = get_object_or_404(Atividade, id=id)
+def excluir_atividade(request, atividade_id):
+    atividade = get_object_or_404(Atividade, id=atividade_id)
+    
     if request.method == "POST":
         atividade.delete()
-        return redirect('listar_atividades')
-    return render(request, 'atividades/atividade_confirm_delete.html', {'atividade': atividade})
+        return redirect("listar_atividades")
+    
+    return render(request, "excluir_atividade.html", {"atividade": atividade})
 
+def concluir_atividade(request, atividade_id):
+    atividade = get_object_or_404(Atividade, id=atividade_id)
+    atividade.status = "concluida"
+    atividade.save()
+    return redirect("listar_atividades")
 
+@login_required
+def perfil(request):
+    usuario = request.user
 
+    if request.method == "POST" and request.FILES.get("foto"):
+        usuario.foto = request.FILES["foto"]
+        usuario.save()
+        return redirect("perfil")
 
+    return render(request, "perfil.html", {"usuario": usuario})
+
+@login_required
+def editar_email(request):
+    if request.method == "POST":
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("perfil")
+    else:
+        form = UserChangeForm(instance=request.user)
+
+    return render(request, "editar_email.html", {"form": form})
+
+@login_required
+def editar_senha(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Mantém o usuário logado
+            return redirect("perfil")
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, "editar_senha.html", {"form": form})
+
+       

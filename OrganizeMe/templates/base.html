@@ -1,107 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Base{% endblock %}</title>
-    <style>body {
-        background-color: #eae0f2;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .header {
-        background-color: #a67dcf;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding: 20px;
-        color: black;
-    }
-    
-    .header .icon {
-        width: 80px;
-        height: 80px;
-        background: url('icone.png') no-repeat center;
-        background-size: contain;
-    }
-    
-    .header .status {
-        text-align: center;
-    }
-    
-    .header .status p {
-        margin: 5px 0;
-        font-size: 14px;
-    }
-    
-    .divider {
-        height: 50px;
-        width: 1px;
-        background-color: black;
-    }
-    
-    .menu {
-        padding: 20px;
-    }
-    
-    .menu-item {
-        background-color: white;
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        width: 200px;
-    }
-    
-    .menu-item::before {
-        content: "";
-        width: 8px;
-        height: 100%;
-        background-color: #7e57c2;
-        display: inline-block;
-        margin-right: 10px;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-    
-    .user-icon {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        background: url('user.png') no-repeat center;
-        background-size: contain;
-    }
-    </style>
+    <title>{% block title %}OrganizeMe{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header class="top-bar">
-        <div class="task-summary">
-            <div class="task-info">
-                <span class="icon">📋</span>
-                <p>{{ tarefas_andamento }}</p>
-                <span>Em Andamento</span>
-            </div>
-            <div class="task-info">
-                <p>{{ tarefas_pendentes }}</p>
-                <span>Pendente</span>
-            </div>
-            <div class="task-info">
-                <p>{{ tarefas_finalizadas }}</p>
-                <span>Finalizadas</span>
-            </div>
-        </div>
-    </header>
+    <div class="container">
+        <h1>Gerenciador de Tarefas</h1>
 
-
-    <main>
         {% block content %}{% endblock %}
-    </main>
+
+        <div class="button-section">
+            <a href="{% url 'cronograma' %}" class="btn">Cronograma</a>
+            <a href="{% url 'criar_atividade' %}" class="btn">Criar Tarefas</a>
+            <a href="{% url 'perfil' %}" class="btn">Perfil</a>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Atividades</title>
+</head>
+<body>
+    <h1>Lista de Atividades</h1>
+    <a href="{% url 'criar_atividade' %}">Criar Nova Atividade</a>
+
+    <ul>
+        {% for atividade in atividades %}
+            <li>
+                <strong>{{ atividade.materia }}</strong> - {{ atividade.status }} (Prazo: {{ atividade.prazo }})
+                <a href="{% url 'editar_atividade' atividade.id %}">Editar</a>
+                <a href="{% url 'excluir_atividade' atividade.id %}">Excluir</a>
+                {% if atividade.status != 'concluida' %}
+                    <a href="{% url 'concluir_atividade' atividade.id %}">Concluir</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

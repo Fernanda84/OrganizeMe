@@ -1,19 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-class Tarefa(models.Model):
-    materia = models.CharField(max_length=100)
-    conteudo = models.TextField()
-    status_choices = [
-        ('pendente', 'Pendente'),
-        ('em andamento', 'Em Andamento'),
-        ('finalizada', 'Finalizada'),
+class Atividade(models.Model):
+    STATUS_CHOICES = [
+        ("pendente", "Pendente"),
+        ("em andamento", "Em Andamento"),
+        ("finalizada", "Finalizada"),
     ]
-    status = models.CharField(max_length=20, choices=status_choices, default='pendente')
+
+    materia = models.CharField(max_length=255)
+    conteudo = models.TextField()
     prazo = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pendente")
+
 
 
     def __str__(self):
-        return self.materia
+        return f"{self.materia} - {self.conteudo}"
 
 

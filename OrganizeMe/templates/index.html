@@ -1,13 +1,39 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
+{% block title %}Tela Inicial{% endblock %}
 
 {% block content %}
-<div class="container">
-    <a href="{% url 'cronograma' %}" class="btn">Cronograma</a>
-    <a href="{% url 'criar_atividade' %}" class="btn">Criar Tarefas</a>
-</div>
+    <div class="status-section">
+        <h2>Em Andamento</h2>
+        <div class="task-list">
+            {% for task in atividades_em_andamento %}
+                <div class="task">{{ task.nome }}</div>
+            {% empty %}
+                <p>Sem atividades em andamento.</p>
+            {% endfor %}
+        </div>
+    </div>
 
+    <div class="status-section">
+        <h2>Pendente</h2>
+        <div class="task-list">
+            {% for task in atividades_pendentes %}
+                <div class="task">{{ task.nome }}</div>
+            {% empty %}
+                <p>Sem atividades pendentes.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="status-section">
+        <h2>Finalizadas</h2>
+        <div class="task-list">
+            {% for task in atividades_finalizadas %}
+                <div class="task">{{ task.nome }}</div>
+            {% empty %}
+                <p>Sem atividades finalizadas.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
-
-

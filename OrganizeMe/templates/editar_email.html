@@ -4,58 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Editar Email{% endblock %}</title>
-    <style>
-        body {
-            background-color: #f3eaff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        h2 {
-            color: #8a5ebf;
-            margin-top: 50px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-            color: #2d1b3c;
-        }
-        input {
-            width: 60%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #b499e3;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #9e7cd4;
-        }
-    </style>
+    <title>Editar Email</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
 <body>
-    <h1>Cadastre seu novo email:</h1>
     <div class="container">
+        <h1>Editar Email</h1>
         <form method="POST">
             {% csrf_token %}
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required><br>
-            <button type="submit" class="btn">Confirmar</button>
+            {{ form.as_p }}
+            <button type="submit">Salvar</button>
         </form>
     </div>
 </body>
