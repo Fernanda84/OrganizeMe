@@ -1,13 +1,19 @@
-from django.db import models 
+from django.db import models
 
-class Atividade(models.Model):
-    materia = models.CharField(max_length=200)
-    descricao = models.TextField(blank=True, null=True)
+
+class Tarefa(models.Model):
+    materia = models.CharField(max_length=100)
+    conteudo = models.TextField()
+    status_choices = [
+        ('pendente', 'Pendente'),
+        ('em andamento', 'Em Andamento'),
+        ('finalizada', 'Finalizada'),
+    ]
+    status = models.CharField(max_length=20, choices=status_choices, default='pendente')
     prazo = models.DateField()
-    concluida = models.BooleanField(default=False)
+
 
     def __str__(self):
-        return self.titulo
+        return self.materia
 
- 
-    
+

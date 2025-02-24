@@ -1,7 +1,10 @@
 from django import forms
-from .models import Atividade
+from .models import Tarefa
 
-class AtividadeForm(forms.ModelForm):
+
+class TarefaForm(forms.ModelForm):
     class Meta:
-        model = Atividade
-        fields = ['materia', 'descricao', 'prazo', 'concluida']
+        model = Tarefa
+        fields = ['materia', 'conteudo', 'status', 'prazo']
+
+

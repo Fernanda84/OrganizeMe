@@ -10,8 +10,8 @@ urlpatterns = [
     path('editar_email/', views.editar_email, name='editar_email'),
     path('redefinir_senha/', views.redefinir_senha, name='redefinir_senha'),
     path('', views.listar_atividades, name='listar_atividades'),
-    path('nova/', views.criar_atividade, name='criar_atividade'),
+    path('criar_tarefa/', views.criar_atividade, name='criar_atividade'),
     path('editar/<int:id>/', views.editar_atividade, name='editar_atividade'),
     path('excluir/<int:id>/', views.excluir_atividade, name='excluir_atividade'),
-   
+    path('concluir_tarefa/<int:id>/', views.concluir_tarefa, name='conclui_tarefa'),
 ]

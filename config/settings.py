@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OrganizeMe',
+    'usuario',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,7 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.exemplo.com'
 EMAIL_PORT = 587
@@ -133,3 +135,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'seu_email@exemplo.com'
 EMAIL_HOST_PASSWORD = 'sua_senha'
 DEFAULT_FROM_EMAIL = 'seu_email@exemplo.com'
+AUTH_USER_MODEL = "usuario.User"

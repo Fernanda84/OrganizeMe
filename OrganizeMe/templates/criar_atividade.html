@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Tarefa</title>
+    <style>
+        body {
+            background-color: #f3eaff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h2 {
+            color: #8a5ebf;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            color: #2d1b3c;
+        }
+        input {
+            width: 60%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .small-input {
+            width: 30%;
+        }
+        button {
+            background-color: #b499e3;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #9e7cd4;
+        }
+    </style>
+</head>
+<body>
+
+
+    <h2 class="title">Crie suas tarefas:</h2>
+
+
+    <form method="POST" action="{% url 'criar_atividade' %}" class="task-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Matéria:</label>
+            <input type="text" name="materia" required>
+        </div>
+        <div class="form-group">
+            <label>Conteúdo:</label>
+            <input type="text" name="conteudo" required>
+        </div>
+        <div class="form-group">
+            <label>Status:</label>
+            <select name="status">
+                <option value="pendente">Pendente</option>
+                <option value="em_andamento">Em Andamento</option>
+                <option value="finalizada">Finalizada</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Prazo:</label>
+            <input type="date" name="prazo" required>
+        </div>
+        <button type="submit" class="btn">Cadastrar</button>
+    </form>
+
+
+</body>
+</html>
