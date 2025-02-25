@@ -5,9 +5,6 @@ urlpatterns = [
 
     path('', views.index, name='index'),
     path('cronograma/', views.cronograma, name='cronograma'),
-    path('perfil/', views.perfil, name='perfil'),
-    path('editar_email/', views.editar_email, name='editar_email'),
-    path('editar_senha/', views.editar_senha, name='editar_senha'),
     path('', views.listar_atividades, name='listar_atividades'),
     path('criar_atividade/', views.criar_atividade, name='criar_atividade'),
     path('editar/<int:id>/', views.editar_atividade, name='editar_atividade'),
