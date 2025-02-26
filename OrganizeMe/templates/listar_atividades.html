@@ -11,14 +11,14 @@
 
     <ul>
         {% for atividade in atividades %}
-            <li>
-                <strong>{{ atividade.materia }}</strong> - {{ atividade.status }} (Prazo: {{ atividade.prazo }})
-                <a href="{% url 'editar_atividade' atividade.id %}">Editar</a>
-                <a href="{% url 'excluir_atividade' atividade.id %}">Excluir</a>
-                {% if atividade.status != 'concluida' %}
-                    <a href="{% url 'concluir_atividade' atividade.id %}">Concluir</a>
-                {% endif %}
-            </li>
+        <li>
+            <strong>{{ atividade.titulo }}</strong>
+            <p>{{ atividade.descricao }}</p>
+            <p>Status: {{ atividade.get_status_display }}</p>
+            <p><a href="{% url 'editar_atividade' atividade.pk %}">Editar</a></p>
+            <p><a href="{% url 'excluir_atividade' atividade.pk %}">Excluir</a></p>
+            <p><a href="{% url 'concluir_atividade' atividade.pk %}">Concluir</a></p>
+        </li>
         {% endfor %}
     </ul>
 </body>

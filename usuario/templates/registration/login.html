@@ -8,15 +8,15 @@
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            {% if form.errors %}
-                <ul class="errorlist">
-                    {% for error in form.username.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+            <label for="username">Usuário:</label>
+            <input type="text" name="username" required><br>
+            <label for="password">Senha:</label>
+            <input type="password" name="password" required><br>
             <button type="submit">Entrar</button>
+        </form>
+        {% if form.errors %}
+        <p>Usuário ou senha inválidos.</p>
+        {% endif %}
         </form>
         <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
         <a class="sair" href="{% url "index" %}">SAIR</a>

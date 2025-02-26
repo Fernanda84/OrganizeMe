@@ -9,4 +9,6 @@ urlpatterns = [
     path('criar_atividade/', views.criar_atividade, name='criar_atividade'),
     path('editar/<int:id>/', views.editar_atividade, name='editar_atividade'),
     path('excluir/<int:id>/', views.excluir_atividade, name='excluir_atividade'),
+    path('concluir/<int:pk>/', views.concluir_atividade, name='concluir_atividade'),
+
 ]

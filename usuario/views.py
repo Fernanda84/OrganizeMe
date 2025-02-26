@@ -27,19 +27,19 @@ def cadastro(request):
             # Loga o usuário automaticamente após o cadastro
             login(request, user)  # Usando a função login do Django
 
-            return redirect("inicio")  # Redireciona para a página inicial
+            return redirect("index")  # Redireciona para a página inicial
     else:
         form = CadastroForm()
     return render(request, "cadastro.html", {"form": form})
 
-# Renomeie a função login para fazer_login
+
 def fazer_login(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             # login(request, user)  # Usando a função login do Django
-            return redirect("inicio")
+            return redirect("index")
     else:
         form = AuthenticationForm()
     return render(request, "login.html", {"form": form})

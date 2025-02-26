@@ -3,6 +3,7 @@ from .models import Atividade
 from django.conf import settings
 from django.forms.models import model_to_dict
 from .forms import AtividadeForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     tarefas_em_andamento = Atividade.objects.filter(status="em andamento")
@@ -21,8 +22,9 @@ def cronograma(request):
     atividades = Atividade.objects.all().order_by('prazo')  # Ordena pelo prazo
     return render(request, "cronograma.html", {'atividade': atividades})
 
+@login_required
 def criar_atividade(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = AtividadeForm(request.POST)
         if form.is_valid():
             form.save()
@@ -39,7 +41,7 @@ def listar_atividades(request):
 def editar_atividade(request, atividade_id):
     atividade = get_object_or_404(Atividade, id=atividade_id)
     
-    if request.method == "POST":
+    if request.method == 'POST':
         form = AtividadeForm(request.POST, instance=atividade)
         if form.is_valid():
             form.save()
@@ -52,7 +54,7 @@ def editar_atividade(request, atividade_id):
 def excluir_atividade(request, atividade_id):
     atividade = get_object_or_404(Atividade, id=atividade_id)
     
-    if request.method == "POST":
+    if request.method == 'POST':
         atividade.delete()
         return redirect("listar_atividades")
     
