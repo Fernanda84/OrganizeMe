@@ -4,11 +4,12 @@
 {% block title %}Tela Inicial{% endblock %}
 
 {% block content %}
+<div class="container">
     <div class="status-section">
         <h2>Em Andamento</h2>
         <div class="task-list">
-            {% for task in atividades_em_andamento %}
-                <div class="task">{{ task.nome }}</div>
+            {% for task in tarefas_em_andamento|slice:":5" %}
+                <div class="task">{{ task.materia }}</div>
             {% empty %}
                 <p>Sem atividades em andamento.</p>
             {% endfor %}
@@ -18,8 +19,8 @@
     <div class="status-section">
         <h2>Pendente</h2>
         <div class="task-list">
-            {% for task in atividades_pendentes %}
-                <div class="task">{{ task.nome }}</div>
+            {% for task in tarefas_pendentes|slice:":5" %}
+                <div class="task">{{ task.materia }}</div>
             {% empty %}
                 <p>Sem atividades pendentes.</p>
             {% endfor %}
@@ -29,11 +30,13 @@
     <div class="status-section">
         <h2>Finalizadas</h2>
         <div class="task-list">
-            {% for task in atividades_finalizadas %}
-                <div class="task">{{ task.nome }}</div>
+            {% for task in tarefas_finalizadas|slice:":5" %}
+                <div class="task">{{ task.materia }}</div>
             {% empty %}
                 <p>Sem atividades finalizadas.</p>
             {% endfor %}
         </div>
-    </div>
+    </div>    
+</div>
+    
 {% endblock %}

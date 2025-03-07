@@ -1,10 +1,10 @@
-{% extends "base_user.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Cadastro - OrganizeMe{% endblock title %}
 
 {% block content %}
-    <div class="form-container">
+    <div class="container-form">
         <h2>Cadastro</h2>
         <form method="POST" action="{% url 'cadastro' %}">
             {% csrf_token %}

@@ -1,10 +1,10 @@
-{% extends "base_user.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Login - OrganizeMe{% endblock title %}
 
 {% block content %}
-    <div class="form-container">
+    <div class="container-form">
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
@@ -17,11 +17,12 @@
         {% if form.errors %}
         <p>Usuário ou senha inválidos.</p>
         {% endif %}
+        <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
         </form>
         <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
         <a class="sair" href="{% url "index" %}">SAIR</a>
 
-        <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+        
 
     </div>
 {% endblock content %}

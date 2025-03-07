@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excluir Atividade</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Excluir Atividade{% endblock title %}
+
+{% block content %}
+<div class="container-form">
     <h1>Tem certeza que deseja excluir "{{ atividade.materia }}"?</h1>
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Confirmar</button>
     </form>
-    <a href="{% url 'listar_atividades' %}">Cancelar</a>
-</body>
-</html>
+    <a href="{% url 'cronograma' %}">Cancelar</a>
+</div>
+
+{% endblock content %}

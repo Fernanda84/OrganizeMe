@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Perfil{% endblock title %}
+
+{% block content %}
+<div class="container-form">
+    <h2>Seu Perfil, {{ request.user.username }}</h2>
+    <a href="{% url 'logout' %}" class="btn">Deslogar</a>
+</div>
+{% endblock content %}

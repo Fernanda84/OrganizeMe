@@ -1,18 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Atividade</title>
-</head>
-<body>
+{% block title %}Editar Atividade{% endblock title %}
+
+{% block content %}
+<div class="container-form">
     <h1>Editar Atividade</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Salvar Alterações</button>
     </form>
-    <a href="{% url 'listar_atividades' %}">Voltar</a>
-</body>
-</html>
+    <a href="{% url 'cronograma' %}">Voltar</a>    
+</div>
+
+{% endblock content %}

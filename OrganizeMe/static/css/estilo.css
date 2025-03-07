@@ -5,16 +5,9 @@ body {
     padding: 30px;
 }
 
-.container {
-    width: 800px;
-    margin: auto;
-    text-align: center;
-}
 
-.header h1 {
-    color: #9b78d1;
-    font-size: 28px;
-}
+
+
 
 .login-cadastro {
     display: flex;
