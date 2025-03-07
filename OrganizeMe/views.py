@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import AtividadeForm, CadastroForm, LoginForm, EditarPerfilForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 def index(request):
     tarefas_em_andamento = Atividade.objects.filter(status="em andamento",estudante=request.user) if request.user.is_authenticated else [] 
@@ -61,13 +62,13 @@ def editar_atividade(request, atividade_id):
 
 @login_required
 def excluir_atividade(request, atividade_id):
-    atividade = get_object_or_404(Atividade, id=atividade_id)
     
     if request.method == 'POST':
-        atividade.delete()
-        return redirect("cronograma")
+       atividade = get_object_or_404(Atividade, id=atividade_id)
+       atividade.delete()
+       return JsonResponse({"success": True})
+    return JsonResponse({"success":False}, status=400)
     
-    return render(request, "excluir_atividade.html", {"atividade": atividade})
 
 @login_required
 def concluir_atividade(request, atividade_id):

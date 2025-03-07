@@ -4,13 +4,39 @@
 {% block title %}Excluir Atividade{% endblock title %}
 
 {% block content %}
-<div class="container-form">
-    <h1>Tem certeza que deseja excluir "{{ atividade.materia }}"?</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Confirmar</button>
-    </form>
-    <a href="{% url 'cronograma' %}">Cancelar</a>
-</div>
+{% for atividade in atividades %}
+    <div id="atividade-{{ atividade.id }}">
+        <p>{{ atividade.nome }}</p>
+        <button class="btn-deletar" data-id="{{ atividade.id }}">Apagar</button>
+    </div>
+{% endfor %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".btn-deletar").click(function() {
+            var atividadeId = $(this).data("id");
+            var confirmacao = confirm("Tem certeza que deseja apagar esta atividade?");
+            
+            if (confirmacao) {
+                $.ajax({
+                    url: "/deletar-atividade/" + atividadeId + "/",
+                    type: "POST",
+                    data: { csrfmiddlewaretoken: "{{ csrf_token }}" },
+                    success: function(response) {
+                        if (response.success) {
+                            $("#atividade-" + atividadeId).fadeOut();
+                        } else {
+                            alert("Erro ao apagar a atividade.");
+                        }
+                    },
+                    error: function() {
+                        alert("Ocorreu um erro na requisição.");
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 {% endblock content %}
