@@ -70,7 +70,7 @@ def excluir_atividade(request, atividade_id):
     return render(request, "excluir_atividade.html", {"atividade": atividade})
 
 @login_required
-def concluir_atividade(atividade_id):
+def concluir_atividade(request, atividade_id):
     atividade = get_object_or_404(Atividade, id=atividade_id)
     atividade.status = "concluida"
     atividade.save()
