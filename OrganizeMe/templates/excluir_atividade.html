@@ -20,9 +20,9 @@
             
             if (confirmacao) {
                 $.ajax({
-                    url: "/deletar-atividade/" + atividadeId + "/",
+                    url: "/excluir/" + atividadeId + "/",
                     type: "POST",
-                    data: { csrfmiddlewaretoken: "{{ csrf_token }}" },
+                    headers: { "X-CSRFToken": getCSRFToken() }, // CSRF via Header
                     success: function(response) {
                         if (response.success) {
                             $("#atividade-" + atividadeId).fadeOut();
@@ -36,6 +36,20 @@
                 });
             }
         });
+
+        // Função para pegar o CSRF Token corretamente do cookie
+        function getCSRFToken() {
+            let cookieValue = null;
+            let cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith("csrftoken=")) {
+                    cookieValue = cookie.substring("csrftoken=".length, cookie.length);
+                    break;
+                }
+            }
+            return cookieValue;
+        }
     });
 </script>
 

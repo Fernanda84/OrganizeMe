@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import AtividadeForm, CadastroForm, LoginForm, EditarPerfilForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 def index(request):
     tarefas_em_andamento = Atividade.objects.filter(status="em andamento",estudante=request.user) if request.user.is_authenticated else [] 
@@ -61,14 +62,11 @@ def editar_atividade(request, atividade_id):
     return render(request, "editar_atividade.html", {"form": form, "atividade": atividade})
 
 @login_required
+@require_POST
 def excluir_atividade(request, atividade_id):
-    
-    if request.method == 'POST':
-       atividade = get_object_or_404(Atividade, id=atividade_id)
-       atividade.delete()
-       return JsonResponse({"success": True})
-    return JsonResponse({"success":False}, status=400)
-    
+    atividade = get_object_or_404(Atividade, id=atividade_id)
+    atividade.delete()
+    return JsonResponse({"success": True, "message": "Atividade excluída com sucesso!"})
 
 @login_required
 def concluir_atividade(request, atividade_id):
