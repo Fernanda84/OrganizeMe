@@ -1,0 +1,56 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
+
+
+
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="header-item">
+            <h2>{{ andamento }}</h2>
+            <p>Em Andamento</p>
+        </div>
+        <div class="header-item">
+            <h2>{{ pendente }}</h2>
+            <p>Pendente</p>
+        </div>
+        <div class="header-item">
+            <h2>{{ finalizadas }}</h2>
+            <p>Finalizadas</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <a href="{% url 'cronograma' %}" style="text-decoration:none; color:black; display:block;">
+            <div class="menu-box">
+                <div class="bar"></div>
+                Cronograma
+            </div>
+        </a>
+
+        <a href="{% url 'criar_tarefa' %} style="text-decoration:none; color:black; display:block;"></a>
+            <div class="menu-box">
+                <div class="bar"></div>
+                Criar Tarefas
+            </div>
+        </a>
+    </div>
+
+    <div class="profile-btn">
+        <div style="width:20px; height:20px; background:black; border-radius:50%;"></div>
+    </div>
+{% endblock %}

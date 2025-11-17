@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Cronograma{% endblock %}
+
+{% block content %}
+<div class="titulo">Atividades</div>
+
+<div class="grid-container">
+    {% for atividade in atividades %}
+    <div class="card">
+        <p><strong>Matéria:</strong> {{ atividade.materia }}</p>
+        <p><strong>Conteúdo:</strong> {{ atividade.conteudo }}</p>
+        <p><strong>Status:</strong> {{ atividade.status }}</p>
+        <p><strong>Prazo:</strong> {{ atividade.prazo }}</p>
+    </div>
+    {% endfor %}
+</div>
+<link rel="stylesheet" href="/static/css/cronograma.css">
+{% endblock %}

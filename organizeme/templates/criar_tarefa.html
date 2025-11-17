@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/criar_atividade.css' %}">
+
+<div class="container">
+    <h1>Criar atividade:</h1>
+
+    <form action="{% url 'cronograma' %}" method="post" class="form-box">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="campo">
+                <label>Materia:</label>
+                <input type="text" name="materia" required>
+            </div>
+
+            <div class="campo">
+                <label>Conteudo</label>
+                <input type="text" name="conteudo" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="campo">
+                <label>Prazo:</label>
+                <input type="date" name="prazo" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-criar">Criar</button>
+    </form>
+</div>
+
+{% endblock %}
