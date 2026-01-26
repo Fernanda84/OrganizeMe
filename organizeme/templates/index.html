@@ -25,7 +25,6 @@
 
             <a href="{% url 'pagina_inicial' %}" class="botao">Entrar</a>
 
-            <a href="{% url 'redefinir_senha' %}" class="esqueci">Esqueci minha senha.</a>
         </div>
 
         <!-- Lado direito - Criar conta -->
@@ -33,18 +32,21 @@
             <h2 class="titulo-cadastro">Crie sua conta</h2>
             <p class="sub">Preencha seus dados</p>
 
-            <form>
-                <label>Nome</label>
-                <input type="text">
-
-                <label>Email</label>
-                <input type="email">
-
-                <label>Senha</label>
-                <input type="password">
-
-                <button type="submit" class="botao">Entrar</button>
+            <form method="post">
+                {% csrf_token %}
+            
+                <input type="text" name="username" placeholder="Usuário" required>
+                <input type="password" name="password" placeholder="Senha" required>
+            
+                <button type="submit">Entrar</button>
+            
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
             </form>
+            
         </div>
 
     </div>

@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Atividade  
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 def index(request):
     andamento = Atividade.objects.filter(status='Em andamento').count()
@@ -24,9 +26,6 @@ def cronograma(request):
 def criar_tarefa(request):
     return render(request, 'criar_tarefa.html')
 
-def redefinir_senha(request):
-    return render(request, 'redefinir_senha.html')
-
 def criar_atividade(request):
     if request.method == "POST":
         materia = request.POST.get("materia")
@@ -43,3 +42,23 @@ def criar_atividade(request):
         return redirect("cronograma")
 
     return render(request, "criar_atividade.html")
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Usuário ou senha inválidos')
+
+    return render(request, 'login.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
