@@ -2,7 +2,18 @@
 {% block title %}Login - OrganizeMe{% endblock %}
 
 {% block content %}
-
+<nav>
+    {% if user.is_authenticated %}
+      <p>Olá, {{ user.username }}!</p>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Sair (Logout)</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Entrar</a> | 
+      <a href="{% url 'signup' %}">Cadastrar</a>
+    {% endif %}
+</nav>
 <div class="container-principal">
 
     <div class="topo">

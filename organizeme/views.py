@@ -43,22 +43,6 @@ def criar_atividade(request):
 
     return render(request, "criar_atividade.html")
 
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'Usuário ou senha inválidos')
-
-    return render(request, 'login.html')
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
